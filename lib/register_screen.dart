@@ -1,14 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/utils.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
+  static const String routeName = 'Register Screen';
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   String userName = '',
       firstName = '',
       lastName = '',
       email = '',
       password = '';
+
   var formKey = GlobalKey<FormState>();
-  static const String routeName = 'Register Screen';
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +43,7 @@ class RegisterScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: MediaQuery.of(context).size.height *0.25,
+                      height: MediaQuery.of(context).size.height * 0.25,
                     ),
                     TextFormField(
                       decoration: InputDecoration(
@@ -52,7 +61,8 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     TextFormField(
                       decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.person), labelText: 'Last Name'),
+                          prefixIcon: Icon(Icons.person),
+                          labelText: 'Last Name'),
                       onChanged: (text) {
                         lastName = text;
                       },
@@ -94,6 +104,7 @@ class RegisterScreen extends StatelessWidget {
                       },
                     ),
                     TextFormField(
+                      obscureText: true,
                       decoration: InputDecoration(
                           prefixIcon: Icon(Icons.password),
                           labelText: 'Password'),
@@ -135,5 +146,15 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  void createAccount() {}
+  void createAccount() async {
+    try {
+      var result = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      if (result.user != null) {
+        showMessage('User Registered Successfully', context, Colors.green);
+      }
+    } catch (error) {
+      showMessage(error.toString(), context, Colors.red);
+    }
+  }
 }
