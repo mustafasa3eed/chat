@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "671232431856",
+    "project_id": "chat-f2ea5",
+    "storage_bucket": "chat-f2ea5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671232431856:android:e52dda0a30216a86c25435",
+        "android_client_info": {
+          "package_name": "com.bugs.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "671232431856-vumcceqhglb2v5qsdcjckv244t7hqk4b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUGpThVP8vT-I01inguSxN8jsbMGCzUnI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "671232431856-vumcceqhglb2v5qsdcjckv244t7hqk4b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
