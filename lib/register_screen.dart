@@ -1,7 +1,9 @@
+import 'package:chat/data/firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/utils.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:chat/data/user.dart' as AppUser;
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = 'RegisterScreen';
@@ -150,6 +152,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
     try {
       var result = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+     addUserToFirestore(AppUser.User(id: result.user!.uid,
+        userName: userName,
+        firstName: firstName,lastName:lastName,email: email
+      )).then((value){
+
+     }).onError((error, stackTrace){
+       showMessage(error.toString(), context, Colors.red);
+     });
       if (result.user != null) {
         showMessage('User Registered Successfully', context, Colors.green);
       }
