@@ -1,8 +1,9 @@
-import 'package:chat/register_screen.dart';
+import 'package:chat/screens/home_screen.dart';
+import 'package:chat/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'login_screen.dart';
+import 'screens/login_screen.dart';
 
 
 void main() async{
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
       routes: {
         RegisterScreen.routeName:(buildContext)=> RegisterScreen(),
         LoginScreen.routeName:(buildContext)=> LoginScreen(),
+        HomeScreen.routeName:(buildContext)=> HomeScreen(),
       },
       initialRoute: LoginScreen.routeName,
     );

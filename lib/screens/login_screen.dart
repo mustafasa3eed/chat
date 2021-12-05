@@ -1,4 +1,6 @@
-import 'package:chat/register_screen.dart';
+import 'package:chat/data/firestore.dart';
+import 'package:chat/screens/home_screen.dart';
+import 'package:chat/screens/register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/utils.dart';
@@ -111,7 +113,10 @@ class _LoginScreenState extends State<LoginScreen> {
       var result = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (result.user != null) {
-        showMessage('Logged in Successfully', context, Colors.green);
+      var firestoreUser =  await  getUserById(result.user!.uid);
+      if(firestoreUser != null){
+
+      }
       }
     } catch (error) {
       showMessage('invalid email or password', context, Colors.red);

@@ -1,4 +1,5 @@
 import 'package:chat/data/firestore.dart';
+import 'package:chat/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/utils.dart';
@@ -162,6 +163,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
      });
       if (result.user != null) {
         showMessage('User Registered Successfully', context, Colors.green);
+        Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+
       }
     } catch (error) {
       showMessage(error.toString(), context, Colors.red);
