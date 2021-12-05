@@ -4,7 +4,7 @@ import 'package:chat/utils.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class RegisterScreen extends StatefulWidget {
-  static const String routeName = 'Register Screen';
+  static const String routeName = 'RegisterScreen';
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();

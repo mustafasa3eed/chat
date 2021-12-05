@@ -2,6 +2,8 @@ import 'package:chat/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'login_screen.dart';
+
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,8 +25,9 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         RegisterScreen.routeName:(buildContext)=> RegisterScreen(),
+        LoginScreen.routeName:(buildContext)=> LoginScreen(),
       },
-      initialRoute: RegisterScreen.routeName,
+      initialRoute: LoginScreen.routeName,
     );
   }
 }
