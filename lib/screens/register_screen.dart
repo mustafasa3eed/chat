@@ -1,10 +1,12 @@
 import 'package:chat/data/firestore.dart';
+import 'package:chat/providers/auth_provider.dart';
 import 'package:chat/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/utils.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:chat/data/user.dart' as AppUser;
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = 'RegisterScreen';
@@ -24,6 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AuthProvider>(context);
     return Container(
       decoration: BoxDecoration(
           color: Colors.white,
@@ -150,21 +153,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void createAccount() async {
+    var provider = Provider.of<AuthProvider>(context, listen: false);
+
     try {
       var result = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-     addUserToFirestore(AppUser.User(id: result.user!.uid,
-        userName: userName,
-        firstName: firstName,lastName:lastName,email: email
-      )).then((value){
-
-     }).onError((error, stackTrace){
-       showMessage(error.toString(), context, Colors.red);
-     });
+      var newUser = AppUser.User(
+          id: result.user!.uid,
+          userName: userName,
+          firstName: firstName,
+          lastName: lastName,
+          email: email);
+      addUserToFirestore(newUser).then((value) {}).onError((error, stackTrace) {
+        showMessage(error.toString(), context, Colors.red);
+      });
       if (result.user != null) {
-        showMessage('User Registered Successfully', context, Colors.green);
-        Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-
+        showMessage('User Registered Successfully', context, Colors.green)
+            .then((value) {
+          provider.updateUser(newUser);
+          Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+        });
       }
     } catch (error) {
       showMessage(error.toString(), context, Colors.red);

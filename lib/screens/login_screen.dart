@@ -1,10 +1,12 @@
 import 'package:chat/data/firestore.dart';
+import 'package:chat/providers/auth_provider.dart';
 import 'package:chat/screens/home_screen.dart';
 import 'package:chat/screens/register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/utils.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'LoginScreen';
@@ -22,6 +24,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AuthProvider>(context);
+
     return Container(
       decoration: BoxDecoration(
           color: Colors.white,
@@ -109,13 +113,16 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void login() async {
+    var provider = Provider.of<AuthProvider>(context, listen: false);
+
     try {
       var result = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (result.user != null) {
       var firestoreUser =  await  getUserById(result.user!.uid);
       if(firestoreUser != null){
-
+        provider.updateUser(firestoreUser);
+        Navigator.pushReplacementNamed(context, HomeScreen.routeName);
       }
       }
     } catch (error) {
