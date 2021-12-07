@@ -1,15 +1,18 @@
 import 'package:chat/data/firestore.dart';
 import 'package:chat/providers/auth_provider.dart';
-import 'package:chat/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/utils.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:chat/data/user.dart' as AppUser;
+import 'package:chat/data/user.dart' as app_user;
 import 'package:provider/provider.dart';
+
+import 'home_screen.dart';
+import 'login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = 'RegisterScreen';
+
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -23,12 +26,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       password = '';
 
   var formKey = GlobalKey<FormState>();
+  late AuthProvider provider;
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<AuthProvider>(context);
+ provider = Provider.of<AuthProvider>(context);
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.white,
           image: DecorationImage(
             fit: BoxFit.cover,
@@ -38,7 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: Text('SignUp'),
+          title: const Text('SignUp'),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -52,7 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       height: MediaQuery.of(context).size.height * 0.25,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           prefixIcon: Icon(Icons.person),
                           labelText: 'First Name'),
                       onChanged: (text) {
@@ -66,7 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                     TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           prefixIcon: Icon(Icons.person),
                           labelText: 'Last Name'),
                       onChanged: (text) {
@@ -80,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                     TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.alternate_email_outlined),
                         labelText: 'Username',
                       ),
@@ -95,7 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                     TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           prefixIcon: Icon(Icons.mail), labelText: 'E-mail'),
                       onChanged: (text) {
                         email = text;
@@ -111,7 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     TextFormField(
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           prefixIcon: Icon(Icons.password),
                           labelText: 'Password'),
                       onChanged: (text) {
@@ -136,7 +140,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           padding: const EdgeInsets.all(12.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
+                            children: const [
                               Text('Create account'),
                               Icon(
                                 Icons.arrow_forward_rounded,
@@ -153,12 +157,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void createAccount() async {
-    var provider = Provider.of<AuthProvider>(context, listen: false);
-
     try {
       var result = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      var newUser = AppUser.User(
+      var newUser = app_user.User(
           id: result.user!.uid,
           userName: userName,
           firstName: firstName,
@@ -170,7 +172,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (result.user != null) {
         showMessage('User Registered Successfully', context, Colors.green)
             .then((value) {
-          provider.updateUser(newUser);
           Navigator.pushReplacementNamed(context, LoginScreen.routeName);
         });
       }

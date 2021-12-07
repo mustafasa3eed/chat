@@ -29,9 +29,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        RegisterScreen.routeName:(buildContext)=> RegisterScreen(),
-        LoginScreen.routeName:(buildContext)=> LoginScreen(),
-        HomeScreen.routeName:(buildContext)=> HomeScreen(),
+        RegisterScreen.routeName:(buildContext)=> const RegisterScreen(),
+        LoginScreen.routeName:(buildContext)=> const LoginScreen(),
+        HomeScreen.routeName:(buildContext)=> const HomeScreen(),
       },
       initialRoute: LoginScreen.routeName,
     );

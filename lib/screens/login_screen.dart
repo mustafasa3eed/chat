@@ -5,29 +5,29 @@ import 'package:chat/screens/register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/utils.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'LoginScreen';
+
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String
-      email = '',
-      password = '';
 
+  String email = '', password = '';
+  late AuthProvider provider;
   var formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<AuthProvider>(context);
+    provider = Provider.of<AuthProvider>(context);
 
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.white,
           image: DecorationImage(
             fit: BoxFit.cover,
@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: Text('Login'),
+          title: const Text('Login'),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: MediaQuery.of(context).size.height * 0.25,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           prefixIcon: Icon(Icons.mail), labelText: 'E-mail'),
                       onChanged: (text) {
                         email = text;
@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     TextFormField(
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           prefixIcon: Icon(Icons.password),
                           labelText: 'Password'),
                       onChanged: (text) {
@@ -92,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.all(12.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
+                            children: const [
                               Text('Login'),
                               Icon(
                                 Icons.arrow_forward_rounded,
@@ -100,10 +100,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                         )),
-                    TextButton(onPressed: (){
-                      Navigator.pushNamed(context, RegisterScreen.routeName);
-                    }, child: Text('Or create a new account'))
-
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context, RegisterScreen.routeName);
+                        },
+                        child: const Text('Or create a new account'))
                   ],
                 )),
           ),
@@ -113,20 +115,19 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void login() async {
-    var provider = Provider.of<AuthProvider>(context, listen: false);
-
     try {
       var result = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (result.user != null) {
-      var firestoreUser =  await  getUserById(result.user!.uid);
-      if(firestoreUser != null){
-        provider.updateUser(firestoreUser);
-        Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-      }
+        var firestoreUser = await getUserById(result.user!.uid);
+        if (firestoreUser != null) {
+          provider.updateUser(firestoreUser);
+          showMessage('Logged in Successfully', context, Colors.green);
+          Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+        }
       }
     } catch (error) {
-      showMessage('invalid email or password', context, Colors.red);
+      showMessage('Invalid email or password', context, Colors.red);
     }
   }
 }
