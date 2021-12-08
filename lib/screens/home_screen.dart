@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'create_new_room';
-
+import 'package:chat/screens/create_new_room.dart';
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'HomeScreen';
   const HomeScreen({Key? key}) : super(key: key);
