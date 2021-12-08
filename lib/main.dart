@@ -22,9 +22,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AuthProvider>(context);
     return MaterialApp(
       title: 'Chat App',
       theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+          backgroundColor: Colors.transparent
+        ),
         scaffoldBackgroundColor: Colors.transparent,
         primarySwatch: Colors.blue,
       ),
@@ -33,7 +38,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName:(buildContext)=> const LoginScreen(),
         HomeScreen.routeName:(buildContext)=> const HomeScreen(),
       },
-      initialRoute: LoginScreen.routeName,
+      initialRoute: provider.isLoggedIn()? HomeScreen.routeName:LoginScreen.routeName,
     );
   }
 }

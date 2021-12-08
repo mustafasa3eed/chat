@@ -40,8 +40,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           )),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
           title: const Text('SignUp'),
         ),
         body: SingleChildScrollView(

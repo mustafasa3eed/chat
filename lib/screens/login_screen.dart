@@ -17,7 +17,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   String email = '', password = '';
   late AuthProvider provider;
   var formKey = GlobalKey<FormState>();
@@ -35,8 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
           )),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
           title: const Text('Login'),
         ),
         body: SingleChildScrollView(
