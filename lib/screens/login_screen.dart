@@ -85,8 +85,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             login();
                           }
                         },
-                        child: Padding(
+                        child: Container(
                           padding: const EdgeInsets.all(12.0),
+                          margin: const EdgeInsets.all(24.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: const [
