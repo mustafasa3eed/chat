@@ -1,3 +1,4 @@
+import 'package:chat/utils.dart';
 import 'package:flutter/material.dart';
 
 class NewRoom extends StatefulWidget {
@@ -8,6 +9,7 @@ class NewRoom extends StatefulWidget {
 }
 
 class _NewRoomState extends State<NewRoom> {
+ Category selectedCategory = categories[0];
   String name = '';
   String description = '';
   var formKey = GlobalKey<FormState>();
@@ -37,7 +39,7 @@ class _NewRoomState extends State<NewRoom> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.05,
                     ),
-                     Image.asset('assets/images/group_logo.png'),
+                    Image.asset('assets/images/group_logo.png'),
                     TextFormField(
                       decoration: const InputDecoration(labelText: 'Name'),
                       onChanged: (text) {
@@ -51,6 +53,8 @@ class _NewRoomState extends State<NewRoom> {
                     ),
                     TextFormField(
                       maxLength: 40,
+                      minLines: 4,
+                      maxLines: 4,
                       decoration:
                           const InputDecoration(labelText: 'Description'),
                       onChanged: (text) {
@@ -63,18 +67,46 @@ class _NewRoomState extends State<NewRoom> {
                       },
                     ),
                     Row(
-                      children: const [
-                        Padding(
+                      children:  [
+                        const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text('Category'),
+                          child: Text('Category :'
+                          ,style: TextStyle(fontSize: 18,),),
                         ),
-                        // DropdownButton(
-                        //   onChanged: ,
-                        //   value: ,
-                        //     items: [
-                        //   DropdownMenuItem(child: Text('hey'))
-                        // ]),
+                        DropdownButton<Category>(
+                          borderRadius: BorderRadius.circular(20),
+                          isExpanded: false,
+                          alignment: Alignment.center,
+                          onChanged: (Category? newCat){
+                            setState(() {
+                              selectedCategory = newCat!;
+                            });
+                          },
+                            value:selectedCategory ,
+                            items: categories
+                                .map<DropdownMenuItem<Category>>((category) {
+                              // var category = Category.fromId(categoryId);
+                              return DropdownMenuItem<Category>(
+                                  value: category,
+                                  child: Row(
+                                    children: [
+                                      Image.asset(
+                                        category.imagePath,
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(category.name),
+                                      )
+                                    ],
+                                  ));
+                            }).toList()),
+
                       ],
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.1,
                     ),
 
                     Container(
@@ -88,7 +120,9 @@ class _NewRoomState extends State<NewRoom> {
                                   RoundedRectangleBorder(
                                       borderRadius:
                                           BorderRadius.circular(25)))),
-                          onPressed: () {},
+                          onPressed: () {
+                            createRoom();
+                          },
                           child: const Text('Create')),
                     ),
                   ],
@@ -98,4 +132,5 @@ class _NewRoomState extends State<NewRoom> {
       ),
     );
   }
+  void createRoom(){}
 }

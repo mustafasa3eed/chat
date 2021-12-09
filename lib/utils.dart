@@ -18,4 +18,34 @@ Future showMessage(String message, BuildContext context, color){
       fontSize: 16.0
   );
 }
-void showLoadig (){}
+class Category {
+  static const String musicId = 'music';
+  static const String moviesId = 'movies';
+  static const String sportsId = 'sports';
+  late String id;
+  late String name;
+  late String imagePath;
+  Category(this.id,this.name,this.imagePath);
+  Category.byId(String id){
+    if(id == musicId){
+      id=musicId;
+      name = 'Music';
+      imagePath = 'assets/images/music.png';
+    }else if(id == moviesId){
+      id = moviesId;
+      name = 'Movies';
+      imagePath = 'assets/images/movies.png';
+    }
+    else if(id == sportsId){
+      id = sportsId;
+      name = 'Sports';
+      imagePath = 'assets/images/sports.png';
+    }
+  }
+}
+
+List<Category> categories = [
+  Category.byId(Category.sportsId),
+  Category.byId(Category.moviesId),
+  Category.byId(Category.musicId),
+];

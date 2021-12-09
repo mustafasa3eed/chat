@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void newChatRoom(){
     showModalBottomSheet<void>(
-      isScrollControlled: false,
+      isScrollControlled: true,
         backgroundColor: Colors.transparent,
         context:context,
         builder:(BuildContext context){
