@@ -37,8 +37,8 @@ class _NewRoomState extends State<NewRoom> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.05,
                     ),
+                     Image.asset('assets/images/group_logo.png'),
                     TextFormField(
-                      obscureText: true,
                       decoration: const InputDecoration(labelText: 'Name'),
                       onChanged: (text) {
                         name = text;
@@ -50,7 +50,6 @@ class _NewRoomState extends State<NewRoom> {
                       },
                     ),
                     TextFormField(
-                      obscureText: true,
                       maxLength: 40,
                       decoration:
                           const InputDecoration(labelText: 'Description'),
@@ -63,6 +62,21 @@ class _NewRoomState extends State<NewRoom> {
                         }
                       },
                     ),
+                    Row(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text('Category'),
+                        ),
+                        // DropdownButton(
+                        //   onChanged: ,
+                        //   value: ,
+                        //     items: [
+                        //   DropdownMenuItem(child: Text('hey'))
+                        // ]),
+                      ],
+                    ),
+
                     Container(
                       height: 50,
                       width: 100,
@@ -76,7 +90,7 @@ class _NewRoomState extends State<NewRoom> {
                                           BorderRadius.circular(25)))),
                           onPressed: () {},
                           child: const Text('Create')),
-                    )
+                    ),
                   ],
                 ))
           ],
