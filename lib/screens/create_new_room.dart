@@ -1,6 +1,5 @@
 import 'package:chat/utils.dart';
 import 'package:flutter/material.dart';
-
 class NewRoom extends StatefulWidget {
   const NewRoom({Key? key}) : super(key: key);
 
@@ -29,6 +28,9 @@ class _NewRoomState extends State<NewRoom> {
                 key: formKey,
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.05,
+                    ),
                     const Text(
                       'Create a new room',
                       style: TextStyle(
@@ -74,7 +76,7 @@ class _NewRoomState extends State<NewRoom> {
                           ,style: TextStyle(fontSize: 18,),),
                         ),
                         DropdownButton<Category>(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20)),
                           isExpanded: false,
                           alignment: Alignment.center,
                           onChanged: (Category? newCat){
