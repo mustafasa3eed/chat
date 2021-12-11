@@ -1,3 +1,5 @@
+import 'package:chat/data/firestore.dart';
+import 'package:chat/data/room.dart';
 import 'package:chat/utils.dart';
 import 'package:flutter/material.dart';
 class NewRoom extends StatefulWidget {
@@ -15,9 +17,9 @@ class _NewRoomState extends State<NewRoom> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
       ),
       child: Padding(
         padding: const EdgeInsets.all(25.0),
@@ -76,7 +78,7 @@ class _NewRoomState extends State<NewRoom> {
                           ,style: TextStyle(fontSize: 18,),),
                         ),
                         DropdownButton<Category>(
-                          borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20)),
+                          borderRadius: BorderRadius.circular(20),
                           isExpanded: false,
                           alignment: Alignment.center,
                           onChanged: (Category? newCat){
@@ -134,5 +136,10 @@ class _NewRoomState extends State<NewRoom> {
       ),
     );
   }
-  void createRoom(){}
+  void createRoom()async{
+    if(formKey.currentState!.validate()){
+      addRoomToFirestore(Room(id: '', name: name, description: description, categoryId: selectedCategory.id));
+      Navigator.pop(context);
+    }
+  }
 }
