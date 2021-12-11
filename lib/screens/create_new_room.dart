@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:chat/data/firestore.dart';
 import 'package:chat/data/room.dart';
 import 'package:chat/utils.dart';
