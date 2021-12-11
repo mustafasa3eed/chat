@@ -138,8 +138,12 @@ class _NewRoomState extends State<NewRoom> {
   }
   void createRoom()async{
     if(formKey.currentState!.validate()){
-      addRoomToFirestore(Room(id: '', name: name, description: description, categoryId: selectedCategory.id));
-      Navigator.pop(context);
+     try {
+    addRoomToFirestore(Room(id: '', name: name, description: description, categoryId: selectedCategory.id));
+    Navigator.pop(context);
+    }on Exception catch (error){
+       showMessage(error.toString(), context, Colors.red);
+     }
     }
   }
 }

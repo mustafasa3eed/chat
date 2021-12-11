@@ -87,7 +87,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         child: Container(
                           padding: const EdgeInsets.all(12.0),
-                          margin: const EdgeInsets.all(24.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: const [
@@ -120,7 +119,6 @@ class _LoginScreenState extends State<LoginScreen> {
         var firestoreUser = await getUserById(result.user!.uid);
         if (firestoreUser != null) {
           provider.updateUser(firestoreUser);
-          showMessage('Logged in Successfully', context, Colors.green);
           Navigator.pushReplacementNamed(context, HomeScreen.routeName);
         }
       }
