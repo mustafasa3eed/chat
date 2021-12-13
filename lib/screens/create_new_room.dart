@@ -14,6 +14,7 @@ class _NewRoomState extends State<NewRoom> {
  Category selectedCategory = categories[0];
   String name = '';
   String description = '';
+  var ids = [Category.sportsId,Category.moviesId,Category.musicId];
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -141,7 +142,7 @@ class _NewRoomState extends State<NewRoom> {
     if(formKey.currentState!.validate()){
      try {
        showLoading(context);
-    var res = await addRoomToFirestore(Room(id: '', name: name, description: description, categoryId: selectedCategory.id));
+     await addRoomToFirestore(Room(id: '', name: name, description: description, categoryId: selectedCategory.id));
     hideLoading(context);
     Navigator.pop(context);
     }on Exception catch (error){
