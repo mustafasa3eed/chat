@@ -1,3 +1,5 @@
+import 'package:chat/data/room.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/screens/create_new_room.dart';
@@ -33,6 +35,24 @@ class _HomeScreenState extends State<HomeScreen> {
             newChatRoom();
           },
         ),
+        body: FutureBuilder<QuerySnapshot<Room>>(
+          future: Room.withConverter().get(),
+          builder: (builder,snapshot){
+            if(snapshot.hasError){
+              return Center(child: Text(snapshot.error.toString()));
+            }else if(snapshot.connectionState == ConnectionState.waiting){
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            var roomslist = snapshot.data!.docs.map((e) => e.data()).toList();
+            return GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 8,crossAxisSpacing: 8),
+                itemBuilder: (buildContext,index){
+                  return Text(roomslist[index].name);
+                },itemCount: roomslist.length,);
+          }
+        ),
       ),
     );
   }
@@ -47,7 +67,5 @@ class _HomeScreenState extends State<HomeScreen> {
               const NewRoom()
           );
         });
-  }
-  void Categories(){
   }
 }

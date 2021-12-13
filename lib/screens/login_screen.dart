@@ -113,6 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void login() async {
     try {
+      showLoading(context);
       var result = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (result.user != null) {
@@ -123,6 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       }
     } catch (error) {
+      hideLoading(context);
       showMessage('Invalid email or password', context, Colors.red);
     }
   }

@@ -18,6 +18,25 @@ Future showMessage(String message, BuildContext context, color){
       fontSize: 16.0
   );
 }
+
+showLoading(BuildContext context){
+  showDialog(context: context, builder: (buildContext){
+    return AlertDialog(
+      content: Row(
+        children: [
+        CircularProgressIndicator(),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Text('Loading...'),
+        )
+      ],),
+    );
+  });
+}
+
+hideLoading(BuildContext context){
+  Navigator.pop(context);
+}
 class Category {
   static const String musicId = 'music';
   static const String moviesId = 'movies';

@@ -140,7 +140,9 @@ class _NewRoomState extends State<NewRoom> {
   void createRoom()async{
     if(formKey.currentState!.validate()){
      try {
-    addRoomToFirestore(Room(id: '', name: name, description: description, categoryId: selectedCategory.id));
+       showLoading(context);
+    var res = await addRoomToFirestore(Room(id: '', name: name, description: description, categoryId: selectedCategory.id));
+    hideLoading(context);
     Navigator.pop(context);
     }on Exception catch (error){
        showMessage(error.toString(), context, Colors.red);
