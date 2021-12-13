@@ -41,7 +41,7 @@ class Category {
   static const String musicId = 'music';
   static const String moviesId = 'movies';
   static const String sportsId = 'sports';
-  late String id = '';
+  late String id;
   late String name;
   late String imagePath;
   Category(this.id,this.name,this.imagePath);

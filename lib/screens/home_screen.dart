@@ -35,8 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
             newChatRoom();
           },
         ),
-        body: FutureBuilder<QuerySnapshot<Room>>(
-          future: Room.withConverter().get(),
+        body: StreamBuilder<QuerySnapshot<Room>>(
+          stream: Room.withConverter().snapshots(),
           builder: (builder,snapshot){
             if(snapshot.hasError){
               return Center(child: Text(snapshot.error.toString()));
