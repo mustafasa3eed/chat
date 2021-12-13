@@ -82,7 +82,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ElevatedButton(
                         onPressed: () {
                           if (formKey.currentState?.validate() == true) {
-                            login();
+                            setState(() {
+                              login();
+
+                            });
                           }
                         },
                         child: Container(

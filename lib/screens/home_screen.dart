@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 8,crossAxisSpacing: 8),
                 itemBuilder: (buildContext,index){
-                  return Text(roomslist[index].name);
+                  return RoomWidget(roomslist.elementAt(index));
                 },itemCount: roomslist.length,);
           }
         ),

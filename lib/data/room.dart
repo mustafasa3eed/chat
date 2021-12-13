@@ -1,4 +1,6 @@
+import 'package:chat/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class Room {
   static const String collectionName = 'Rooms';
@@ -33,3 +35,23 @@ class Room {
         toFirestore: (room, _) => room.toJson());
   }
 }
+class RoomWidget extends StatelessWidget {
+
+  RoomWidget(this.room);
+  Room room;
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Image.asset(Category.byId(room.categoryId).imagePath),
+          Text(room.name)
+        ],
+      ),
+    );
+  }
+}
+
