@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String dropdownValue = 'One';
+  late String dropdownValue;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
             newChatRoom();
           },
         ),
+        // Displaying the room list in a grid view.
         body: StreamBuilder<QuerySnapshot<Room>>(
           stream: Room.withConverter().snapshots(),
           builder: (builder,snapshot){
@@ -57,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // Chat room bottom sheet.
   void newChatRoom(){
     showModalBottomSheet<void>(
       isScrollControlled: true,
@@ -69,3 +71,4 @@ class _HomeScreenState extends State<HomeScreen> {
         });
   }
 }
+

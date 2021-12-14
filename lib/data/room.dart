@@ -45,9 +45,16 @@ class RoomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(12),
+      margin: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.white,
+        boxShadow: [BoxShadow(color: Colors.black45,offset: Offset(4,1))]
+      ),
       child: Column(
         children: [
-          Image.asset(Category.byId(room.categoryId).imagePath),
+          Image.asset(Category.byId(room.categoryId).image),
           Text(room.name)
         ],
       ),

@@ -33,7 +33,7 @@ showLoading(BuildContext context) {
             ],
           ),
         );
-      });
+      },barrierDismissible: true);
 }
 
 hideLoading(BuildContext context) {
@@ -44,23 +44,27 @@ class Category {
   static const String musicId = 'music';
   static const String moviesId = 'movies';
   static const String sportsId = 'sports';
-  late String id = '';
+  late String id;
   late String name;
-  late String imagePath = '';
-  Category(this.id, this.name, this.imagePath);
+  late String image='';
+
+
+  Category(this.id, this.name, this.image);
+
+
   Category.byId(String id) {
     if (id == musicId) {
-      id = musicId;
+      this.id = musicId;
       name = 'Music';
-      imagePath = 'assets/images/music.png';
+      image = 'assets/images/music.png';
     } else if (id == moviesId) {
-      id = moviesId;
+      this.id = moviesId;
       name = 'Movies';
-      imagePath = 'assets/images/movies.png';
+      image = 'assets/images/movies.png';
     } else if (id == sportsId) {
-      id = sportsId;
+      this.id = sportsId;
       name = 'Sports';
-      imagePath = 'assets/images/sports.png';
+      image = 'assets/images/sports.png';
     }
   }
 }

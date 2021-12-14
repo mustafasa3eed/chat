@@ -82,7 +82,6 @@ class _NewRoomState extends State<NewRoom> {
                         DropdownButton<Category>(
                           borderRadius: BorderRadius.circular(20),
                           isExpanded: false,
-                          alignment: Alignment.center,
                           onChanged: (Category? newCat){
                             setState(() {
                               selectedCategory = newCat!;
@@ -97,7 +96,7 @@ class _NewRoomState extends State<NewRoom> {
                                   child: Row(
                                     children: [
                                       Image.asset(
-                                        category.imagePath,
+                                        category.image,
                                         width: 20,
                                         height: 20,
                                       ),
@@ -151,3 +150,4 @@ class _NewRoomState extends State<NewRoom> {
     }
   }
 }
+
