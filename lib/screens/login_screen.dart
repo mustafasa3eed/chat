@@ -36,78 +36,87 @@ class _LoginScreenState extends State<LoginScreen> {
         appBar: AppBar(
           title: const Text('Login'),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Form(
-                key: formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.25,
-                    ),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.mail), labelText: 'E-mail'),
-                      onChanged: (text) {
-                        email = text;
-                      },
-                      validator: (text) {
-                        if (text == null || text.trim().isEmpty) {
-                          return 'Please enter your  Email';
-                        }
-                        if (!isValidEmail(email)) {
-                          return 'Please enter a valid Email';
-                        }
-                      },
-                    ),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.password),
-                          labelText: 'Password'),
-                      onChanged: (text) {
-                        password = text;
-                      },
-                      validator: (text) {
-                        if (text == null || text.trim().isEmpty) {
-                          return 'Please enter your Password';
-                        }
-                        if (text.length < 9) {
-                          return "password cant be less than 9 char/num/symbol";
-                        }
-                      },
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          if (formKey.currentState?.validate() == true) {
-                            setState(() {
-                              login();
-
-                            });
+        body: Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Form(
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            prefixIcon: Icon(Icons.mail),
+                            labelText: 'E-mail'),
+                        onChanged: (text) {
+                          email = text;
+                        },
+                        validator: (text) {
+                          if (text == null || text.trim().isEmpty) {
+                            return 'Please enter your  Email';
+                          }
+                          if (!isValidEmail(email)) {
+                            return 'Please enter a valid Email';
                           }
                         },
-                        child: Container(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text('Login'),
-                              Icon(
-                                Icons.arrow_forward_rounded,
-                              ),
-                            ],
-                          ),
-                        )),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(
-                              context, RegisterScreen.routeName);
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      TextFormField(
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            prefixIcon: Icon(Icons.lock),
+                            suffixIcon: Icon(Icons.remove_red_eye),
+                            labelText: 'Password'),
+                        onChanged: (text) {
+                          password = text;
                         },
-                        child: const Text('Or create a new account'))
-                  ],
-                )),
+                        validator: (text) {
+                          if (text == null || text.trim().isEmpty) {
+                            return 'Please enter your Password';
+                          }
+                          if (text.length < 9) {
+                            return "password cant be less than 9 char/num/symbol";
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Container(
+                        width: double.infinity,
+                          height: 45,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              if (formKey.currentState?.validate() == true) {
+                                login();
+                              }
+                            },
+                            child: Text('LOGIN')),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("don't have an account?"),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, RegisterScreen.routeName);
+                              },
+                              child: const Text('Register now')),
+                        ],
+                      )
+                    ],
+                  )),
+            ),
           ),
         ),
       ),

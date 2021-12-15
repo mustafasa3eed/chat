@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         HomeScreen.routeName: (buildContext) => const HomeScreen(),
       },
       initialRoute:
-          provider.isLoggedIn()? HomeScreen.routeName : LoginScreen.routeName,
+          LoginScreen.routeName,
     );
   }
 }

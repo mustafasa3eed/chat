@@ -54,8 +54,15 @@ class RoomWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Image.asset(Category.byId(room.categoryId).image),
-          Text(room.name)
+          Image.asset('assets/images/music.png',height: 100,width: 100,),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Text(room.name,
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold
+            ),),
+          )
         ],
       ),
     );
